@@ -1,0 +1,30 @@
+CREATE DATABASE IF NOT EXISTS login_react ;
+use login_react;
+
+CREATE TABLE IF NOT EXISTS tipo_usuario(
+	idTipoUsuario INT (30) NOT NULL,
+    PRIMARY KEY(idTipoUsuario),
+    etiquetaTipoUsuario VARCHAR(128) NOT NULL,
+    descripcionTipoUsuario VARCHAR(256) DEFAULT NULL
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+INSERT INTO tipo_usuario VALUES(1, 'Administrador', 'Jefe del departamento');
+INSERT INTO tipo_usuario VALUES(2, 'Desarrollo', 'Lider de los desarrollos');
+INSERT INTO tipo_usuario VALUES(3, 'Diseño', 'Encaregado de generar las estructuras y diseños de los aplicativos');
+
+ALTER TABLE tipo_usuario MODIFY idTipoUsuario int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+	id INT(11) NOT NULL COMMENT 'Identificador único para el usuario',
+    PRIMARY KEY (id),
+    usuario VARCHAR(30) NOT NULL COMMENT 'Correo Electrónico',
+    clave VARCHAR(30) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(128) NOT NULL,
+    idTipoUsuario INT(30) NOT NULL,
+    FOREIGN KEY(idTipoUsuario) REFERENCES tipo_usuario(idTipoUsuario)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO usuarios VALUES(1, 'pablo@pablo.co', '$2y$10$FRcsor4X9UHLiUjQ3BqSZe0vnWF/lSH79tLM1kqHSfLcHr8CfY27i', 'Pablo', 'Ayala Sanchez', 1);
+
+ALTER TABLE usuarios MODIFY id int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador único para el usuario', AUTO_INCREMENT=7;
